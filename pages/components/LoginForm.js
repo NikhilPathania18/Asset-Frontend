@@ -21,8 +21,12 @@ const SuperAdminLoginForm = () => {
           email: values.email,
           password: values.password,
         });
-        
+        console.log(res);
         if (res && res.data.success) {
+          localStorage.setItem('superAdmin',JSON.stringify({
+            user: res.data.user,
+            token:   res.data.token
+          }))
           toast.success(res.data.message);
           router.push("/dashboard");
         }
