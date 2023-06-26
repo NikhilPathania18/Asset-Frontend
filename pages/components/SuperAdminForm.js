@@ -21,7 +21,10 @@ const SuperAdminForm = () => {
         const res = await API.createSuperAdmin({email:values.email, password:values.password})
         if(res&&res.data.success){
           toast.success(res.data.message)
-          router.push('/')
+          router.push('/login')
+        }
+        else{
+          toast.error('Error in Regstration')
         }
       },
     });
