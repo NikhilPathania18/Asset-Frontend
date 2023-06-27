@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import { superAdminSchema } from "./FormSchemas/superAdmin";
 import { useRouter } from "next/router";
-import * as API from "../api/index.js";
-import {toast} from 'react-toastify'
+import * as API from "../pages/api/index.js";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
 const initialValues = {
   email: "",
@@ -11,20 +12,23 @@ const initialValues = {
 };
 
 const SuperAdminForm = () => {
-  const router =useRouter();
+  const router = useRouter();
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: superAdminSchema,
       onSubmit: async (values, action) => {
         console.log(values);
-        const res = await API.createSuperAdmin({email:values.email, password:values.password})
-        if(res&&res.data.success){
-          toast.success(res.data.message)
-          router.push('/login')
-        }
-        else{
-          toast.error('Error in Regstration')
+        const res = await API.createSuperAdmin({
+          email: values.email,
+          password: values.password,
+          role: "superadmin",
+        });
+        if (res && res.data.success) {
+          toast.success(res.data.message);
+          router.push("/login");
+        } else {
+          toast.error(res.data.message);
         }
       },
     });
@@ -108,6 +112,7 @@ const SuperAdminForm = () => {
           >
             Sign Up
           </button>
+          <Link href="/login" className="px-4 text-blue-600">Login</Link>
         </form>
       </main>
     </div>

@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import { superAdminLoginSchema } from "./FormSchemas/superAdmin";
 import { useRouter } from "next/router";
-import * as API from "../api/index.js";
+import * as API from "../pages/api/index.js";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 const initialValues = {
   email: "",
@@ -23,17 +24,19 @@ const SuperAdminLoginForm = () => {
         });
         console.log(res);
         if (res && res.data.success) {
-          localStorage.setItem('superAdmin',JSON.stringify({
-            user: res.data.user,
-            token:   res.data.token
-          }))
+          localStorage.setItem(
+            "superAdmin",
+            JSON.stringify({
+              user: res.data.user,
+              token: res.data.token,
+            })
+          );
           toast.success(res.data.message);
           router.push("/dashboard");
+        } else if (res) {
+          toast.error(res.data.message);
         }
-        else if(res){
-            toast.error(res.data.message)
-        }
-      }
+      },
     });
 
   return (
@@ -94,6 +97,7 @@ const SuperAdminLoginForm = () => {
           >
             Log In
           </button>
+          <Link href="/signup" className="px-4 text-blue-600">Sign Up</Link>
         </form>
       </main>
     </div>

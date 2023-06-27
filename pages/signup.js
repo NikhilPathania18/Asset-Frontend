@@ -1,4 +1,4 @@
-import SuperAdminForm from "@/pages/components/SuperAdminForm";
+import SuperAdminForm from "@/components/SuperAdminForm";
 const SignUp = () => {
   return <SuperAdminForm />;
 };

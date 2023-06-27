@@ -1,53 +1,58 @@
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import * as API from './api/index.js'
-import { companyDetailsSchema } from "./components/FormSchemas/companyDetails";
+import * as API from "./api/index.js";
+import { companyDetailsSchema } from "../components/FormSchemas/companyDetails.js";
 import { toast } from "react-toastify";
 
 const initialValues = {
   company_name: "",
   registration_number: "",
-  PAN: '',
-  GST: '',
-  Address1: '',
-  Address2: '',
-  city: '',
-  state: '',
-  PIN: '',
-  country: '',
-  phone: '',
-  companyType:''
-}
+  PAN: "",
+  GST: "",
+  Address1: "",
+  Address2: "",
+  city: "",
+  state: "",
+  PIN: "",
+  country: "",
+  phone: "",
+  companyType: "",
+};
 const CompanyDetails = () => {
   const router = useRouter();
-  const {values,errors,touched, handleBlur, handleChange, handleSubmit} = useFormik({
-    initialValues,
-    validationSchema: companyDetailsSchema,
-    onSubmit: async(values, action) => {
-      console.log(values);
-      const res = await API.companyProfile(values);
-      if(res&&res.data.success){
-        toast.success('Company Details filled succesfully')
-        router.push('/dashboard')
-      }
-    }
-  })
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: companyDetailsSchema,
+      onSubmit: async (values, action) => {
+        console.log(values);
+        const res = await API.companyProfile(values);
+        if (res && res.data.success) {
+          toast.success("Company Details filled succesfully");
+          router.push("/dashboard");
+        }
+      },
+    });
 
-  const submitForm = async(values) => {
-    
+  const submitForm = async (values) => {
     const res = await API.companyProfile(values);
-      if(res&&res.data.success){
-        toast.success('Company Details filled succesfully')
-        router.push('/dashboard')
-      }
-      else{
-        toast.error('Error')
-      }
-  }
+    if (res && res.data.success) {
+      toast.success("Company Details filled succesfully");
+      router.push("/dashboard");
+    } else {
+      toast.error("Error");
+    }
+  };
   return (
     <div>
       <main className="w-full flex justify-center items-center h-full my-7">
-        <form className={`bg-slate-50 p-4 rounded-xl shadow-lg w-96`} onSubmit={(e)=>{e.preventDefault();submitForm(values)}}>
+        <form
+          className={`bg-slate-50 p-4 rounded-xl shadow-lg w-96`}
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitForm(values);
+          }}
+        >
           <p className="text-4xl text-blue-700 mb-4">Company Details</p>
           <div className="relative z-0 w-full mb-6 group">
             <input
@@ -60,7 +65,6 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
             {errors.company_name && touched.company_name ? (
               <p className="text-red-400 text-sm">{errors.company_name}</p>
@@ -83,9 +87,11 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
-            />{errors.registration_number && touched.registration_number ? (
-              <p className="text-red-400 text-sm">{errors.registration_number}</p>
+            />
+            {errors.registration_number && touched.registration_number ? (
+              <p className="text-red-400 text-sm">
+                {errors.registration_number}
+              </p>
             ) : null}
             <label
               htmlFor="registration_number"
@@ -105,7 +111,6 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
             {errors.PAN && touched.PAN ? (
               <p className="text-red-400 text-sm">{errors.PAN}</p>
@@ -128,7 +133,6 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
             {errors.GST && touched.GST ? (
               <p className="text-red-400 text-sm">{errors.GST}</p>
@@ -152,9 +156,8 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
-            {errors.Address1&& touched.Address1 ? (
+            {errors.Address1 && touched.Address1 ? (
               <p className="text-red-400 text-sm">{errors.Address1}</p>
             ) : null}
             <label
@@ -175,7 +178,6 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
             {errors.Address2 && touched.Address2 ? (
               <p className="text-red-400 text-sm">{errors.Address2}</p>
@@ -198,7 +200,6 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
             {errors.city && touched.city ? (
               <p className="text-red-400 text-sm">{errors.city}</p>
@@ -221,7 +222,6 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
             {errors.state && touched.state ? (
               <p className="text-red-400 text-sm">{errors.state}</p>
@@ -244,7 +244,6 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
             {errors.PIN && touched.PIN ? (
               <p className="text-red-400 text-sm">{errors.PIN}</p>
@@ -267,7 +266,6 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
             {errors.country && touched.country ? (
               <p className="text-red-400 text-sm">{errors.country}</p>
@@ -290,7 +288,6 @@ const CompanyDetails = () => {
               onBlur={handleBlur}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-               
             />
             {errors.phone && touched.phone ? (
               <p className="text-red-400 text-sm">{errors.company_name}</p>
@@ -317,10 +314,9 @@ const CompanyDetails = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3"
-             
           >
             <option value="">Choose a type</option>
-            <option value="Manufacturing" >Manufacturing</option>
+            <option value="Manufacturing">Manufacturing</option>
             <option value="Construction">Construction</option>
             <option value="IT/Technology">IT/Technology</option>
             <option value="Education">Education</option>
@@ -330,8 +326,8 @@ const CompanyDetails = () => {
             <option value="Real Estate">Real Estate</option>
           </select>
           {errors.companyType && touched.companyType ? (
-              <p className="mb-2 text-red-400 text-sm">{errors.companyType}</p>
-            ) : null}
+            <p className="mb-2 text-red-400 text-sm">{errors.companyType}</p>
+          ) : null}
 
           <button
             type="submit"

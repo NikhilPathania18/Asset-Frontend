@@ -1,6 +1,5 @@
-import SuperAdminLoginForm from "./components/LoginForm";
+import SuperAdminLoginForm from "../components/LoginForm";
 const Login = () => {
-  return (
-    <SuperAdminLoginForm />
-  )}
+  return <SuperAdminLoginForm />;
+};
 export default Login;
